@@ -14,13 +14,18 @@ public class Ball : MonoBehaviour
     public Vector2 aimDirection;
     [HideInInspector]
     public int bounces;
+    [HideInInspector]
+    public int target;
+    [HideInInspector]
+    public Rigidbody2D rb;
 
-    private Rigidbody2D rb;
+    private GameObject player;
     private SpriteRenderer sr;
     private PlayerController playerCon;
 
     void Start()
     {
+        player = FindObjectOfType<PlayerController>().gameObject;
         rb = GetComponent<Rigidbody2D>();
         sr = sprite.GetComponent<SpriteRenderer>();
         playerCon = FindObjectOfType<PlayerController>();
@@ -30,27 +35,33 @@ public class Ball : MonoBehaviour
     private void Update()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        aimDirection = mousePos - (Vector2)transform.position;
-        if (playerCon.facingRight)
+        if (target == 0)
         {
-            if (aimDirection.x < 0)
+            aimDirection = mousePos - (Vector2)transform.position;
+
+            if (playerCon.facingRight)
             {
-                if (aimDirection.y >= 0)
-                    aimDirection = new Vector2(.2f, 1);
-                else
-                    aimDirection = new Vector2(.2f, -1);
+                if (aimDirection.x < 0)
+                {
+                    if (aimDirection.y >= 0)
+                        aimDirection = new Vector2(.2f, 1);
+                    else
+                        aimDirection = new Vector2(.2f, -1);
+                }
+            }
+            else
+            {
+                if (aimDirection.x > 0)
+                {
+                    if (aimDirection.y >= 0)
+                        aimDirection = new Vector2(-.2f, 1);
+                    else
+                        aimDirection = new Vector2(-.2f, -1);
+                }
             }
         }
-        else
-        {
-            if (aimDirection.x > 0)
-            {
-                if (aimDirection.y >= 0)
-                    aimDirection = new Vector2(-.2f, 1);
-                else
-                    aimDirection = new Vector2(-.2f, -1);
-            }
-        }
+        else if (target == 1)
+            aimDirection = (player.transform.position - transform.position).normalized;
 
         arrowPivot.transform.position = transform.position;
         arrowPivot.transform.right = aimDirection;

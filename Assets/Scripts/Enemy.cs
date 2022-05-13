@@ -2,34 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwingBox : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
-    public float hitPower;
-    public float aimTime;
-
-    [HideInInspector]
-    public bool hitBall;
+    public int requiredSpeedToKill;
+    public float redirectTime;
+    public float redirectPower;
 
     private GameObject player;
     private Vector2 hitDirection;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void Start()
     {
-        if(collision.tag == "Ball")
-        {
-            StartCoroutine(HitBall(collision.gameObject));
-        }
+        player = FindObjectOfType<PlayerController>().gameObject;
     }
+
+    public void Redirect(GameObject ball)
+    {
+        StartCoroutine(HitBall(ball));
+    }
+
     private IEnumerator HitBall(GameObject ball)
     {
-        hitBall = true;
         Ball ballScript = ball.GetComponent<Ball>();
         Time.timeScale = 0;
-        ballScript.target = 0;
+        ballScript.target = 1;
         ballScript.arrowPivot.SetActive(true);
-        yield return new WaitForSecondsRealtime(aimTime);
+        yield return new WaitForSecondsRealtime(redirectTime);
         ballScript.arrowPivot.SetActive(false);
-        hitDirection = ballScript.aimDirection.normalized;
+        hitDirection = (player.transform.position - ball.transform.position).normalized;
         Time.timeScale = 1;
         LaunchBall(ball);
     }
@@ -40,8 +40,7 @@ public class SwingBox : MonoBehaviour
         Rigidbody2D ballRb = ball.GetComponent<Rigidbody2D>();
         float ballSpeed = ballRb.velocity.magnitude;
         ballRb.velocity = Vector2.zero;
-        ballRb.AddForce(hitDirection * (ballSpeed + hitPower), ForceMode2D.Impulse);
+        ballRb.AddForce(hitDirection * (ballSpeed + redirectPower), ForceMode2D.Impulse);
         ballScript.bounces = 0;
-        gameObject.SetActive(false);
     }
 }

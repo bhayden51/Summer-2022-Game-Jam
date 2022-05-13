@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     [Header("Combat")]
     public GameObject swingBox;
     public bool canSwing;
+    public float activeTime;
+    public float reloadTime;
 
     [HideInInspector]
     public bool facingRight;
@@ -28,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && Grounded())
+        if(Input.GetKeyDown(KeyCode.Space) && Grounded() && Time.timeScale != 0)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
@@ -80,10 +82,10 @@ public class PlayerController : MonoBehaviour
 
         swingBox.SetActive(true);
         swingBox.GetComponent<SwingBox>().hitBall = false;
-        yield return new WaitForSeconds(.02f);
+        yield return new WaitForSeconds(activeTime);
         if(!swingBox.GetComponent<SwingBox>().hitBall)
             swingBox.SetActive(false);
-        yield return new WaitForSeconds(.25f);
+        yield return new WaitForSeconds(reloadTime);
         canSwing = true;
     }
 
