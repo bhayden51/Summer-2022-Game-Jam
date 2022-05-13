@@ -10,11 +10,17 @@ public class PlayerController : MonoBehaviour
     public float defaultGravity;
     public float quickFallGravity;
 
+    [Header("Health")]
+    public int maxHealth;
+    public int currentHealth;
+
     [Header("Combat")]
     public GameObject swingBox;
     public bool canSwing;
     public float activeTime;
     public float reloadTime;
+
+    public SpriteRenderer sr;
 
     [HideInInspector]
     public bool facingRight;
@@ -26,6 +32,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         swingBox.SetActive(false);
         canSwing = true;
+        currentHealth = maxHealth;
     }
 
     void Update()
@@ -89,6 +96,28 @@ public class PlayerController : MonoBehaviour
         canSwing = true;
     }
 
+    private void HealDamage(int heal)
+    {
+        currentHealth += heal;
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+    }
+
+    private void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+    private void Die()
+    {
+        Destroy(gameObject);
+    }
+
     private bool Grounded()
     {
         int layerMask = 1 << 6;
@@ -103,10 +132,12 @@ public class PlayerController : MonoBehaviour
     private void FaceRight()
     {
         facingRight = true;
+        sr.flipX = false;
     }
 
     private void FaceLeft()
     {
         facingRight = false;
+        sr.flipX = true;
     }
 }
