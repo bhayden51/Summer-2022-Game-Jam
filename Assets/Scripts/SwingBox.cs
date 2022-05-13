@@ -10,6 +10,7 @@ public class SwingBox : MonoBehaviour
     [HideInInspector]
     public bool hitBall;
 
+    private GameObject player;
     private Vector2 hitDirection;
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -24,6 +25,7 @@ public class SwingBox : MonoBehaviour
         hitBall = true;
         Ball ballScript = ball.GetComponent<Ball>();
         Time.timeScale = 0;
+        ballScript.target = 0;
         ballScript.arrowPivot.SetActive(true);
         yield return new WaitForSecondsRealtime(aimTime);
         ballScript.arrowPivot.SetActive(false);

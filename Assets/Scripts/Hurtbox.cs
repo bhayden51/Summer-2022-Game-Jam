@@ -5,6 +5,12 @@ using UnityEngine;
 public class Hurtbox : MonoBehaviour
 {
     public GameObject ball;
+    public Ball ballScript;
+
+    private void Start()
+    {
+        ballScript = ball.GetComponent<Ball>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -16,8 +22,16 @@ public class Hurtbox : MonoBehaviour
         if (collision.tag == "Enemy")
         {
             Enemy en = collision.gameObject.GetComponent<Enemy>();
-            if (ball.GetComponent<Ball>().speedLevel >= en.requiredSpeedToKill)
+            if (ballScript.speedLevel >= en.requiredSpeedToKill)
+            {
                 Destroy(en.gameObject);
+
+                ballScript.bounces = 0;
+                float newSpeed = ((ballScript.speedLevel * 10) - 20);
+                if (newSpeed < 10)
+                    newSpeed = 10;
+                ballScript.rb.velocity = ballScript.rb.velocity.normalized * newSpeed;
+            }
             else
             {
                 en.Redirect(ball);

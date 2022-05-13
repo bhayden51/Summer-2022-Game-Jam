@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour
     {
         Ball ballScript = ball.GetComponent<Ball>();
         Time.timeScale = 0;
+        ballScript.target = 1;
         ballScript.arrowPivot.SetActive(true);
         yield return new WaitForSecondsRealtime(redirectTime);
         ballScript.arrowPivot.SetActive(false);
