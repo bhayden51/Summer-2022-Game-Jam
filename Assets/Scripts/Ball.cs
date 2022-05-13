@@ -6,6 +6,7 @@ public class Ball : MonoBehaviour
 {
     public GameObject arrowPivot;
     public GameObject sprite;
+    public SpriteRenderer sr;
     public int bouncesToLoseSpeed;
 
     [HideInInspector]
@@ -20,14 +21,12 @@ public class Ball : MonoBehaviour
     public Rigidbody2D rb;
 
     private GameObject player;
-    private SpriteRenderer sr;
     private PlayerController playerCon;
 
     void Start()
     {
         player = FindObjectOfType<PlayerController>().gameObject;
         rb = GetComponent<Rigidbody2D>();
-        sr = sprite.GetComponent<SpriteRenderer>();
         playerCon = FindObjectOfType<PlayerController>();
         arrowPivot.SetActive(false);
     }
