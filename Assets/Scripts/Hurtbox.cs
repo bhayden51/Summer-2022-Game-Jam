@@ -14,9 +14,10 @@ public class Hurtbox : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" && ballScript.canHurtPlayer)
         {
             ball.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            collision.GetComponent<PlayerController>().TakeDamage(1);
         }
         if (collision.tag == "Enemy")
         {

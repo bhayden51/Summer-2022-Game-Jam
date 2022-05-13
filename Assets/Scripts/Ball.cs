@@ -6,8 +6,10 @@ public class Ball : MonoBehaviour
 {
     public GameObject arrowPivot;
     public GameObject sprite;
-    public SpriteRenderer sr;
+    public SpriteRenderer colorSR;
+    public SpriteRenderer glassSR;
     public int bouncesToLoseSpeed;
+    public float playerInvinAfterHitting;
 
     [HideInInspector]
     public int speedLevel;
@@ -19,12 +21,15 @@ public class Ball : MonoBehaviour
     public int target;
     [HideInInspector]
     public Rigidbody2D rb;
+    [HideInInspector]
+    public bool canHurtPlayer;
 
     private GameObject player;
     private PlayerController playerCon;
 
     void Start()
     {
+        canHurtPlayer = false;
         player = FindObjectOfType<PlayerController>().gameObject;
         rb = GetComponent<Rigidbody2D>();
         playerCon = FindObjectOfType<PlayerController>();
@@ -80,33 +85,27 @@ public class Ball : MonoBehaviour
 
         if (speedLevel == 5)
         {
-            sprite.transform.localScale = new Vector3(1.25f, .5f, 1f);
-            sr.color = new Color(1, 0, 0, 1);
+            ChangeBallAppearence(new Vector3(1.25f, .5f, 1f), new Color(1, 0, 0, 1));
         }
         else if (speedLevel == 4)
         {
-            sprite.transform.localScale = new Vector3(1f, .75f, 1f);
-            sr.color = new Color(1, .5f, 0, 1);
+            ChangeBallAppearence(new Vector3(1.1f, .8f, 1f), new Color(1, .5f, 0, 1));
         }
         else if (speedLevel == 3)
         {
-            sprite.transform.localScale = new Vector3(1f, .9f, 1f);
-            sr.color = new Color(.5f, .5f, 1, 1);
+            ChangeBallAppearence(new Vector3(1.05f, .9f, 1f), new Color(.5f, .5f, 1, 1));
         }
         else if (speedLevel == 2)
         {
-            sprite.transform.localScale = new Vector3(1f, 1f, 1f);
-            sr.color = new Color(.5f, 1, .5f, 1);
+            ChangeBallAppearence(new Vector3(1.025f, .95f, 1f), new Color(.5f, 1, .5f, 1));
         }
         else if (speedLevel == 1)
         {
-            sprite.transform.localScale = new Vector3(1f, 1f, 1f);
-            sr.color = new Color(.5f, .5f, .5f, 1);
+            ChangeBallAppearence(new Vector3(1f, 1f, 1f), new Color(.5f, .5f, .5f, 1));
         }
         else
         {
-            sprite.transform.localScale = new Vector3(1f, 1f, 1f);
-            sr.color = new Color(.5f, .5f, .5f, 1);
+            ChangeBallAppearence(new Vector3(1f, 1f, 1f), new Color(.5f, .5f, .5f, 1));
         }
 
         rb.velocity = rb.velocity.normalized * velocityMag;
@@ -126,5 +125,24 @@ public class Ball : MonoBehaviour
                 rb.velocity = rb.velocity.normalized * newSpeed;
             }
         }
+    }
+
+    public void CantHurtPlayer()
+    {
+        StartCoroutine(CantHurtPlayerEnum());
+    }
+
+    private IEnumerator CantHurtPlayerEnum()
+    {
+        canHurtPlayer = false;
+        yield return new WaitForSeconds(playerInvinAfterHitting);
+        canHurtPlayer = true;
+    }
+
+    private void ChangeBallAppearence(Vector3 newScale, Color newColor)
+    {
+        sprite.transform.localScale = newScale;
+        colorSR.color = newColor;
+        glassSR.color = newColor;
     }
 }

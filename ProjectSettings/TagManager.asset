@@ -41,6 +41,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Player
+    uniqueID: 2022718905
+    locked: 0
+  - name: Enemies
+    uniqueID: 364631791
+    locked: 0
+  - name: Ball
+    uniqueID: 3972975989
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

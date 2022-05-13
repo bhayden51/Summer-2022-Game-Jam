@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Combat")]
     public GameObject swingBox;
-    public bool canSwing;
     public float activeTime;
     public float reloadTime;
 
@@ -31,12 +30,16 @@ public class PlayerController : MonoBehaviour
     public AudioSource swingCollisionAudio;
 
     private Rigidbody2D rb;
+    private bool jumping;
+    private bool attacking;
+    private Vector2 walkDirection;
+
+    private Coroutine currentSwing;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         swingBox.SetActive(false);
-        canSwing = true;
         currentHealth = maxHealth;
     }
 
@@ -47,12 +50,12 @@ public class PlayerController : MonoBehaviour
         else
             anim.SetBool("Grounded", false);
 
-        if(Input.GetKeyDown(KeyCode.Space) && Grounded() && Time.timeScale != 0)
+        if(Input.GetKeyDown(KeyCode.Space) && Grounded() && Time.timeScale != 0 && !attacking)
         {
             StartCoroutine(jump());
         }
 
-        if (canSwing && Time.timeScale != 0)
+        if (!attacking && Time.timeScale != 0)
         {
             if (Input.GetAxis("Horizontal") > 0)
                 FaceRight();
@@ -60,7 +63,7 @@ public class PlayerController : MonoBehaviour
                 FaceLeft();
 
             if (Input.GetMouseButtonDown(0))
-                StartCoroutine(Swing());
+                currentSwing = StartCoroutine(Swing());
         }
 
         if (rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
@@ -73,25 +76,28 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private IEnumerator jump()
-    {
-        anim.SetTrigger("Jump");
-        yield return new WaitForSeconds(0.1f);
-        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-    }
-
     private void FixedUpdate()
     {
-        Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), 0);
+        if (!jumping)
+        {
+            Walk();
+        }
+    }
 
-        transform.Translate(direction * moveSpeed * Time.fixedDeltaTime);
+    private IEnumerator jump()
+    {
+        anim.SetBool("Jumping", true);
+        jumping = true;
+        yield return new WaitForSeconds(0.05f);
+        jumping = false;
+        anim.SetBool("Jumping", false);
+        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
 
     private IEnumerator Swing()
     {
-        canSwing = false;
+        attacking = true;
 
-        swingingAudio.Play();
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (mousePos.x >= transform.position.x)
             FaceRight();
@@ -106,19 +112,41 @@ public class PlayerController : MonoBehaviour
 
         swingBox.SetActive(true);
         swingBox.GetComponent<SwingBox>().hitBall = false;
+        anim.SetBool("Jumping", false);
         anim.SetTrigger("Wind Up");
         anim.SetBool("Attacking", true);
         yield return new WaitForSeconds(activeTime);
         if (!swingBox.GetComponent<SwingBox>().hitBall)
+        {
             swingBox.SetActive(false);
-        else
-            swingCollisionAudio.Play();
+            anim.SetTrigger("Swing");
+            swingingAudio.Play();
+        }
+
         yield return new WaitForSeconds(reloadTime);
-        canSwing = true;
+        attacking = false;
         anim.SetBool("Attacking", false);
     }
 
-    private void HealDamage(int heal)
+    private void StopSwing()
+    {
+        StartCoroutine(StopSwingEnum());
+    }
+
+    private IEnumerator StopSwingEnum()
+    {
+        attacking = true;
+        if (currentSwing != null)
+            StopCoroutine(currentSwing);
+        swingBox.GetComponent<SwingBox>().StopSwing();
+        swingBox.SetActive(false);
+        anim.SetBool("Attacking", false);
+
+        yield return new WaitForSeconds(.25f);
+        attacking = false;
+    }
+
+    public void HealDamage(int heal)
     {
         currentHealth += heal;
         if (currentHealth > maxHealth)
@@ -127,8 +155,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
+        StopSwing();
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
@@ -161,5 +190,15 @@ public class PlayerController : MonoBehaviour
     {
         facingRight = false;
         sr.flipX = true;
+    }
+
+    private void Walk()
+    {
+        if(!attacking)
+            walkDirection = new Vector2(Input.GetAxis("Horizontal"), 0);
+        else if(Grounded())
+            walkDirection = Vector2.zero;
+
+        transform.Translate(walkDirection * moveSpeed * Time.fixedDeltaTime);
     }
 }
