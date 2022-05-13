@@ -17,7 +17,7 @@ public class SwingBox : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         playerCon = FindObjectOfType<PlayerController>();
-        if (collision.tag == "Ball")
+        if (collision.tag == "Ball" && gameObject.activeInHierarchy)
         {
             StartCoroutine(HitBall(collision.gameObject));
         }

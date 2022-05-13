@@ -18,6 +18,7 @@ public class Hurtbox : MonoBehaviour
         {
             ball.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             collision.GetComponent<PlayerController>().TakeDamage(1);
+            ballScript.canHurtPlayer = false;
         }
         if (collision.tag == "Enemy")
         {

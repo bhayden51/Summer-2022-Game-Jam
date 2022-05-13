@@ -29,6 +29,7 @@ public class Ball : MonoBehaviour
 
     void Start()
     {
+        arrowPivot.transform.SetParent(null);
         canHurtPlayer = false;
         player = FindObjectOfType<PlayerController>().gameObject;
         rb = GetComponent<Rigidbody2D>();
