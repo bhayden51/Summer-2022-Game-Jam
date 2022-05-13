@@ -42,9 +42,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (Grounded())
+            anim.SetBool("Grounded", true);
+        else
+            anim.SetBool("Grounded", false);
+
         if(Input.GetKeyDown(KeyCode.Space) && Grounded() && Time.timeScale != 0)
         {
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            StartCoroutine(jump());
         }
 
         if (canSwing && Time.timeScale != 0)
@@ -66,6 +71,13 @@ public class PlayerController : MonoBehaviour
         {
             rb.gravityScale = defaultGravity;
         }
+    }
+
+    private IEnumerator jump()
+    {
+        anim.SetTrigger("Jump");
+        yield return new WaitForSeconds(0.1f);
+        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
 
     private void FixedUpdate()
@@ -95,14 +107,15 @@ public class PlayerController : MonoBehaviour
         swingBox.SetActive(true);
         swingBox.GetComponent<SwingBox>().hitBall = false;
         anim.SetTrigger("Wind Up");
+        anim.SetBool("Attacking", true);
         yield return new WaitForSeconds(activeTime);
-        anim.SetTrigger("Swing");
         if (!swingBox.GetComponent<SwingBox>().hitBall)
             swingBox.SetActive(false);
         else
             swingCollisionAudio.Play();
         yield return new WaitForSeconds(reloadTime);
         canSwing = true;
+        anim.SetBool("Attacking", false);
     }
 
     private void HealDamage(int heal)

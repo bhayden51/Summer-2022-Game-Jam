@@ -214,7 +214,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 26effe3bc7540d148b3b3099da3e0238, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c949594d3e844ef40a2bdad94e93f16d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -971,8 +971,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.5, y: 1.4}
+  m_Offset: {x: -0.18186939, y: -0.055154707}
+  m_Size: {x: 0.9460552, y: 1.0259237}
   m_Direction: 0
 --- !u!4 &876191811
 Transform:
@@ -1570,7 +1570,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: -1
 --- !u!1 &1647210588
 GameObject:
   m_ObjectHideFlags: 0
@@ -1894,7 +1894,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -5
   m_Sprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
   m_Color: {r: 0.33962262, g: 0, b: 0, a: 1}
   m_FlipX: 0

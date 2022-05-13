@@ -27,7 +27,9 @@ public class SwingBox : MonoBehaviour
         Time.timeScale = 0;
         ballScript.target = 0;
         ballScript.arrowPivot.SetActive(true);
-        yield return new WaitForSecondsRealtime(aimTime);
+        yield return new WaitForSecondsRealtime(aimTime - 0.05f);
+        FindObjectOfType<PlayerController>().anim.SetTrigger("Swing");
+        yield return new WaitForSecondsRealtime(0.05f);
         ballScript.arrowPivot.SetActive(false);
         hitDirection = ballScript.aimDirection.normalized;
         Time.timeScale = 1;
