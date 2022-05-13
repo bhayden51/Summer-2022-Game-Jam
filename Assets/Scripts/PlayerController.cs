@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
     private bool jumping;
     private bool attacking;
     private Vector2 walkDirection;
+    private int touchingPlatform;
+    private bool dropping;
 
     private Coroutine currentSwing;
 
@@ -45,6 +47,18 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if(touchingPlatform <= 0 && !dropping)
+        {
+            if (Input.GetKey(KeyCode.S))
+                Physics2D.IgnoreLayerCollision(9, 3, true);
+            else
+                Physics2D.IgnoreLayerCollision(9, 3, false);
+        }
+        else if (touchingPlatform > 0 && Input.GetKey(KeyCode.S))
+        {
+            StartCoroutine(AllowPlatformCollision());
+        }
+
         if (Grounded())
             anim.SetBool("Grounded", true);
         else
@@ -171,11 +185,18 @@ public class PlayerController : MonoBehaviour
 
     private bool Grounded()
     {
-        int layerMask = 1 << 6;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1.1f, layerMask);
+        if (rb.velocity.y <= 0)
+        {
+            int layerMask = 1 << 6;
+            RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position + Vector2.down, Vector2.down, 0.1f, layerMask);
+            int layerMask2 = 1 << 9;
+            RaycastHit2D hit2 = Physics2D.Raycast((Vector2)transform.position + Vector2.down, Vector2.down, 0.1f, layerMask2);
 
-        if (hit.collider != null)
-            return true;
+            if (hit.collider != null || hit2.collider != null)
+                return true;
+            else
+                return false;
+        }
         else
             return false;
     }
@@ -202,5 +223,27 @@ public class PlayerController : MonoBehaviour
             walkDirection = Vector2.zero;
 
         transform.Translate(walkDirection * moveSpeed * Time.fixedDeltaTime);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == 9)
+        {
+            touchingPlatform++;
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == 9)
+            touchingPlatform--;
+    }
+
+    private IEnumerator AllowPlatformCollision()
+    {
+        dropping = true;
+        Physics2D.IgnoreLayerCollision(9, 3, true);
+        yield return new WaitForSeconds(.5f);
+        Physics2D.IgnoreLayerCollision(9, 3, false);
+        dropping = false;
     }
 }
