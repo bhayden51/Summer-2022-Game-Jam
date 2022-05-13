@@ -17,7 +17,6 @@ public class Hurtbox : MonoBehaviour
         if (collision.tag == "Player")
         {
             ball.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            Debug.Log("Hurt");
         }
         if (collision.tag == "Enemy")
         {
