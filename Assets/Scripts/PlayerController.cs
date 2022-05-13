@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public bool facingRight;
 
+    public AudioSource swingingAudio;
+    public AudioSource swingCollisionAudio;
+
     private Rigidbody2D rb;
 
     void Start()
@@ -76,6 +79,7 @@ public class PlayerController : MonoBehaviour
     {
         canSwing = false;
 
+        swingingAudio.Play();
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (mousePos.x >= transform.position.x)
             FaceRight();
@@ -95,6 +99,8 @@ public class PlayerController : MonoBehaviour
         anim.SetTrigger("Swing");
         if (!swingBox.GetComponent<SwingBox>().hitBall)
             swingBox.SetActive(false);
+        else
+            swingCollisionAudio.Play();
         yield return new WaitForSeconds(reloadTime);
         canSwing = true;
     }
