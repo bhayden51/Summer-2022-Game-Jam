@@ -20,7 +20,9 @@ public class PlayerController : MonoBehaviour
     public float activeTime;
     public float reloadTime;
 
+    [Header("Art")]
     public SpriteRenderer sr;
+    public Animator anim;
 
     [HideInInspector]
     public bool facingRight;
@@ -41,7 +43,6 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
-
 
         if (canSwing && Time.timeScale != 0)
         {
@@ -89,8 +90,10 @@ public class PlayerController : MonoBehaviour
 
         swingBox.SetActive(true);
         swingBox.GetComponent<SwingBox>().hitBall = false;
+        anim.SetTrigger("Wind Up");
         yield return new WaitForSeconds(activeTime);
-        if(!swingBox.GetComponent<SwingBox>().hitBall)
+        anim.SetTrigger("Swing");
+        if (!swingBox.GetComponent<SwingBox>().hitBall)
             swingBox.SetActive(false);
         yield return new WaitForSeconds(reloadTime);
         canSwing = true;
