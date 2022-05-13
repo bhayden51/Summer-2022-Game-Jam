@@ -184,12 +184,14 @@ public class PlayerController : MonoBehaviour
     {
         facingRight = true;
         sr.flipX = false;
+        sr.gameObject.transform.localPosition = new Vector2(-.25f, .35f);
     }
 
     private void FaceLeft()
     {
         facingRight = false;
         sr.flipX = true;
+        sr.gameObject.transform.localPosition = new Vector2(.25f, .35f);
     }
 
     private void Walk()
