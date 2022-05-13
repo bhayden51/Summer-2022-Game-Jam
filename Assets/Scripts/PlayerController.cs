@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if (canSwing)
+        if (canSwing && Time.timeScale != 0)
         {
             if (Input.GetAxis("Horizontal") > 0)
                 FaceRight();

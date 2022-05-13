@@ -214,7 +214,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3145328045451892686, guid: 816c4a479719f264c846229921b94234, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 26effe3bc7540d148b3b3099da3e0238, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1239,10 +1239,13 @@ MonoBehaviour:
   jumpForce: 12
   defaultGravity: 2
   quickFallGravity: 4
+  maxHealth: 0
+  currentHealth: 0
   swingBox: {fileID: 876191809}
   canSwing: 0
   activeTime: 0.1
   reloadTime: 0.2
+  sr: {fileID: 80703022}
   facingRight: 0
 --- !u!1 &1501376361
 GameObject:
