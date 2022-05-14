@@ -222,6 +222,11 @@ public class PlayerController : MonoBehaviour
         else if(Grounded())
             walkDirection = Vector2.zero;
 
+        if (Input.GetAxis("Horizontal") == 0)
+            anim.SetBool("Walking", false);
+        else
+            anim.SetBool("Walking", true);
+
         transform.Translate(walkDirection * moveSpeed * Time.fixedDeltaTime);
     }
 
