@@ -94,7 +94,7 @@ public class Ball : MonoBehaviour
         }
         else if (speedLevel == 3)
         {
-            ChangeBallAppearence(new Vector3(1.05f, .9f, 1f), new Color(.5f, .5f, 1, 1));
+            ChangeBallAppearence(new Vector3(1.05f, .9f, 1f), new Color(0f, 0f, 1, 1));
         }
         else if (speedLevel == 2)
         {
