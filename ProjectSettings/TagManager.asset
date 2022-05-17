@@ -59,6 +59,9 @@ TagManager:
   - name: Enemies
     uniqueID: 364631791
     locked: 0
+  - name: Shield
+    uniqueID: 2559118149
+    locked: 0
   - name: Player
     uniqueID: 2022718905
     locked: 0
