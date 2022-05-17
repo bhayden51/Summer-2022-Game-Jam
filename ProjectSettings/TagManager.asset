@@ -62,6 +62,9 @@ TagManager:
   - name: Player
     uniqueID: 2022718905
     locked: 0
+  - name: Particle
+    uniqueID: 3666300255
+    locked: 0
   - name: Arrow
     uniqueID: 3899136623
     locked: 0

@@ -781,7 +781,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -395830673
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 73c46afde5bd06a4d9a0abc78f2b46ef, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3151,6 +3151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 1025527470}
+  deathParticle: {fileID: 2412596083211509270, guid: 54b50d776fdf98c469e9d45a173d0b36, type: 3}
   ballScript: {fileID: 0}
 --- !u!1 &2023141995
 GameObject:

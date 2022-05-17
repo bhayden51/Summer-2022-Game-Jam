@@ -5,6 +5,7 @@ using UnityEngine;
 public class Hurtbox : MonoBehaviour
 {
     public GameObject ball;
+    public GameObject deathParticle;
     public Ball ballScript;
 
     private void Start()
@@ -25,6 +26,7 @@ public class Hurtbox : MonoBehaviour
             Enemy en = collision.gameObject.GetComponent<Enemy>();
             if (ballScript.speedLevel >= en.requiredSpeedToKill)
             {
+                Instantiate(deathParticle, collision.gameObject.transform.position, Quaternion.identity);
                 Destroy(en.gameObject);
 
                 ballScript.bounces = 0;
