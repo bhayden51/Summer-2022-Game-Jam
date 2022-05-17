@@ -13,6 +13,12 @@ public class SceneTransition : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
+    public void ChangeScene(string scene)
+    {
+        newScene = scene;
+        anim.SetTrigger("Scene End");
+    }
+
     public void ChangeScene(string scene, float delay)
     {
         StartCoroutine(ChangeSceneEnum(scene, delay));
