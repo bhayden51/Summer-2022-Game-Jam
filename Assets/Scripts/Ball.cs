@@ -5,6 +5,7 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     public GameObject arrowPivot;
+    public GameObject arrowScalePivot;
     public GameObject sprite;
     public SpriteRenderer colorSR;
     public SpriteRenderer glassSR;

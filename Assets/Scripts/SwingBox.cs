@@ -29,6 +29,7 @@ public class SwingBox : MonoBehaviour
         Time.timeScale = 0;
         ballScript.target = 0;
         ballScript.arrowPivot.SetActive(true);
+        ballScript.arrowScalePivot.transform.localScale = new Vector3(.5f, 1, 1);
         yield return new WaitForSecondsRealtime(aimTime - 0.05f);
         playerCon.anim.SetTrigger("Swing");
         playerCon.swingingAudio.Play();
