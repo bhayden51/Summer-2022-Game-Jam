@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
     {
         anim.SetTrigger("Wind Up");
         Ball ballScript = ball.GetComponent<Ball>();
-        chargeUpSound.pitch = (.5f - ((float)ballScript.speedLevel / 10f)) + .5f;
+        chargeUpSound.pitch = ((float)ballScript.speedLevel / 10f) + .5f;
         chargeUpSound.Play();
         Time.timeScale = 0;
         ballScript.target = 1;

@@ -11,6 +11,7 @@ public class Ball : MonoBehaviour
     public SpriteRenderer glassSR;
     public int bouncesToLoseSpeed;
     public float playerInvinAfterHitting;
+    public AudioSource bounceSound;
 
     [HideInInspector]
     public int speedLevel;
@@ -124,6 +125,7 @@ public class Ball : MonoBehaviour
     {
         if(collision.gameObject.tag == "Ground")
         {
+            bounceSound.Play();
             bounces++;
             if(bounces >= bouncesToLoseSpeed)
             {
