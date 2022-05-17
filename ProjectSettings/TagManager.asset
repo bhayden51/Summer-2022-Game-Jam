@@ -53,14 +53,14 @@ TagManager:
   - name: Hazard
     uniqueID: 1919658599
     locked: 0
-  - name: Ball
-    uniqueID: 3972975989
-    locked: 0
   - name: Enemies
     uniqueID: 364631791
     locked: 0
   - name: Shield
     uniqueID: 2559118149
+    locked: 0
+  - name: Ball
+    uniqueID: 3972975989
     locked: 0
   - name: Player
     uniqueID: 2022718905
