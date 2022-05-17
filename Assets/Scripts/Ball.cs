@@ -27,6 +27,7 @@ public class Ball : MonoBehaviour
 
     private GameObject player;
     private PlayerController playerCon;
+    private TrailRenderer trail;
 
     void Start()
     {
@@ -36,6 +37,7 @@ public class Ball : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerCon = FindObjectOfType<PlayerController>();
         arrowPivot.SetActive(false);
+        trail = GetComponent<TrailRenderer>();
     }
 
     private void Update()
@@ -146,5 +148,8 @@ public class Ball : MonoBehaviour
         sprite.transform.localScale = newScale;
         colorSR.color = newColor;
         glassSR.color = newColor;
+        trail.startColor = newColor;
+        trail.endColor = newColor;
+        trail.startWidth = newScale.y / 2;
     }
 }
