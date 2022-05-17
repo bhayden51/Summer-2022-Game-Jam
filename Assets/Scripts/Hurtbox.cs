@@ -17,9 +17,14 @@ public class Hurtbox : MonoBehaviour
     {
         if (collision.tag == "Player" && ballScript.canHurtPlayer)
         {
-            ball.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            ballScript.bounces = 0;
+            float newSpeed = ((ballScript.speedLevel * 10) - 10);
+            if (newSpeed < 10)
+                newSpeed = 10;
+            ballScript.rb.velocity = ballScript.rb.velocity.normalized * newSpeed;
             collision.GetComponent<PlayerController>().TakeDamage(1);
             ballScript.canHurtPlayer = false;
+            gameObject.SetActive(false);
         }
         if (collision.tag == "Enemy")
         {
@@ -30,7 +35,7 @@ public class Hurtbox : MonoBehaviour
                 Destroy(en.gameObject);
 
                 ballScript.bounces = 0;
-                float newSpeed = ((ballScript.speedLevel * 10) - 20);
+                float newSpeed = ((ballScript.speedLevel * 10) - 10);
                 if (newSpeed < 10)
                     newSpeed = 10;
                 ballScript.rb.velocity = ballScript.rb.velocity.normalized * newSpeed;

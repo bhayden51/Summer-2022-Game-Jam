@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public float redirectTime;
     public float redirectPower;
     public AudioSource collisionSound;
+    public AudioSource chargeUpSound;
 
     private GameObject player;
     private Vector2 hitDirection;
@@ -28,13 +29,18 @@ public class Enemy : MonoBehaviour
     {
         anim.SetTrigger("Wind Up");
         Ball ballScript = ball.GetComponent<Ball>();
+        chargeUpSound.pitch = (.5f - ((float)ballScript.speedLevel / 10f)) + .5f;
+        chargeUpSound.Play();
         Time.timeScale = 0;
         ballScript.target = 1;
         ballScript.arrowPivot.SetActive(true);
         ballScript.arrowScalePivot.transform.localScale = new Vector3(.5f, 1, 1);
         yield return new WaitForSecondsRealtime(redirectTime);
         ballScript.arrowPivot.SetActive(false);
-        hitDirection = (player.transform.position - ball.transform.position).normalized;
+        if(player != null)
+            hitDirection = (player.transform.position - ball.transform.position).normalized;
+        else
+            hitDirection = (Vector3.zero - ball.transform.position).normalized;
         Time.timeScale = 1;
         LaunchBall(ball);
     }

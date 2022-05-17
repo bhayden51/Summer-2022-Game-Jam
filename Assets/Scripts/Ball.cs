@@ -69,7 +69,12 @@ public class Ball : MonoBehaviour
             }
         }
         else if (target == 1)
-            aimDirection = (player.transform.position - transform.position).normalized;
+        {
+            if(player != null)
+                aimDirection = (player.transform.position - transform.position).normalized;
+            else
+                aimDirection = (Vector3.zero - transform.position).normalized;
+        }
 
         arrowPivot.transform.position = transform.position;
         arrowPivot.transform.right = aimDirection;

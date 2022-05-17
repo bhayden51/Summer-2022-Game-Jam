@@ -6,6 +6,7 @@ public class SwingBox : MonoBehaviour
 {
     public float hitPower;
     public float aimTime;
+    public AudioSource chargeUpSound;
 
     [HideInInspector]
     public bool hitBall;
@@ -26,6 +27,8 @@ public class SwingBox : MonoBehaviour
     {
         hitBall = true;
         ballScript = ball.GetComponent<Ball>();
+        chargeUpSound.pitch = ((float)ballScript.speedLevel / 10f) + .5f;
+        chargeUpSound.Play();
         Time.timeScale = 0;
         ballScript.target = 0;
         ballScript.arrowPivot.SetActive(true);

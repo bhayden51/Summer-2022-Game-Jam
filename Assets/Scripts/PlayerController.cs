@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public bool facingRight;
 
+    public GameObject deathParticle;
+
     public AudioSource swingingAudio;
     public AudioSource swingCollisionAudio;
 
@@ -180,6 +182,8 @@ public class PlayerController : MonoBehaviour
     }
     private void Die()
     {
+        Instantiate(deathParticle, gameObject.transform.position, Quaternion.identity);
+        FindObjectOfType<SceneTransition>().RestartScene(.5f);
         Destroy(gameObject);
     }
 
