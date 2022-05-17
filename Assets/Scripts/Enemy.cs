@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     public int requiredSpeedToKill;
     public float redirectTime;
     public float redirectPower;
+    public AudioSource collisionSound;
 
     private GameObject player;
     private Vector2 hitDirection;
@@ -40,6 +41,7 @@ public class Enemy : MonoBehaviour
 
     private void LaunchBall(GameObject ball)
     {
+        collisionSound.Play();
         anim.SetTrigger("Swing");
         FindObjectOfType<CameraController>().Shake();
         Ball ballScript = ball.GetComponent<Ball>();
