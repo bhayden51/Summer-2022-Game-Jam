@@ -50,6 +50,9 @@ TagManager:
   - name: Tilemap
     uniqueID: 3107602121
     locked: 0
+  - name: Hazard
+    uniqueID: 1919658599
+    locked: 0
   - name: Ball
     uniqueID: 3972975989
     locked: 0
