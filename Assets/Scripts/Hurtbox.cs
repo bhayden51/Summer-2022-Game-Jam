@@ -33,7 +33,6 @@ public class Hurtbox : MonoBehaviour
             {
                 Instantiate(deathParticle, collision.gameObject.transform.position, Quaternion.identity);
                 Destroy(en.gameObject);
-                Debug.Log(FindObjectsOfType<Enemy>().Length);
                 ballScript.bounces = 0;
                 float newSpeed = ((ballScript.speedLevel * 10) - 10);
                 if (newSpeed < 10)
@@ -41,6 +40,7 @@ public class Hurtbox : MonoBehaviour
                 ballScript.rb.velocity = ballScript.rb.velocity.normalized * newSpeed;
                 if (FindObjectsOfType<Enemy>().Length <= 1)
                 {
+                    FindObjectOfType<GameManager>().NextLevel();
                     gameObject.SetActive(false);
                 }
             }
