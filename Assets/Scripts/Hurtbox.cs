@@ -15,7 +15,7 @@ public class Hurtbox : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player" && ballScript.canHurtPlayer)
+        if (collision.tag == "Player" && ballScript.canHurtPlayer && ballScript.speedLevel > 1)
         {
             ballScript.bounces = 0;
             float newSpeed = ((ballScript.speedLevel * 10) - 10);
