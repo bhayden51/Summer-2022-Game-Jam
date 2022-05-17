@@ -41,6 +41,7 @@ public class SwingBox : MonoBehaviour
 
     private void LaunchBall(GameObject ball)
     {
+        FindObjectOfType<CameraController>().Shake();
         playerCon.swingCollisionAudio.Play();
         Ball ballScript = ball.GetComponent<Ball>();
         ballScript.CantHurtPlayer();

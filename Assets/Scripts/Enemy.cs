@@ -36,6 +36,7 @@ public class Enemy : MonoBehaviour
 
     private void LaunchBall(GameObject ball)
     {
+        FindObjectOfType<CameraController>().Shake();
         Ball ballScript = ball.GetComponent<Ball>();
         Rigidbody2D ballRb = ball.GetComponent<Rigidbody2D>();
         float ballSpeed = ballRb.velocity.magnitude;
