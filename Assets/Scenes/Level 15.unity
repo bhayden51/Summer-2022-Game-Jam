@@ -2527,6 +2527,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4539687028332396508, guid: e11c24ffda222dd4caacced14764fa2d, type: 3}
+      propertyPath: myNewSong
+      value: 
+      objectReference: {fileID: 8300000, guid: 33ff9e9c9c8cca94fb68b63ed4a8d3e8, type: 3}
     - target: {fileID: 6483786873744015979, guid: e11c24ffda222dd4caacced14764fa2d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.5

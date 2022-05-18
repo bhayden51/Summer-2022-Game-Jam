@@ -18,6 +18,12 @@ public class SceneTransition : MonoBehaviour
         if (scene == "Level 1")
             GameManager.level = 1;
 
+        if (scene == "Level 16")
+        {
+            scene = "Credits";
+            FindObjectOfType<MusicChanger>().NewSong();
+        }
+
         newScene = scene;
         anim.SetTrigger("Scene End");
     }
@@ -50,5 +56,10 @@ public class SceneTransition : MonoBehaviour
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(newScene);
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }
