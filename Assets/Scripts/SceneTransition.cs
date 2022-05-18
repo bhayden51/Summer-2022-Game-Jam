@@ -48,6 +48,7 @@ public class SceneTransition : MonoBehaviour
 
     public void ChangeSceneEnd()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(newScene);
     }
 }

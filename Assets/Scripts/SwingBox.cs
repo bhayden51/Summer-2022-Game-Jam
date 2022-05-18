@@ -13,20 +13,21 @@ public class SwingBox : MonoBehaviour
 
     private PlayerController playerCon;
     private Vector2 hitDirection;
-    private Ball ballScript;
+    private int ballBeingHit;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         playerCon = FindObjectOfType<PlayerController>();
         if (collision.tag == "Ball" && gameObject.activeInHierarchy)
         {
+            ballBeingHit++;
             StartCoroutine(HitBall(collision.gameObject));
         }
     }
     private IEnumerator HitBall(GameObject ball)
     {
         hitBall = true;
-        ballScript = ball.GetComponent<Ball>();
+        Ball ballScript = ball.GetComponent<Ball>();
         chargeUpSound.pitch = ((float)ballScript.speedLevel / 10f) + .5f;
         chargeUpSound.Play();
         Time.timeScale = 0;
@@ -54,14 +55,19 @@ public class SwingBox : MonoBehaviour
         ballRb.velocity = Vector2.zero;
         ballRb.AddForce(hitDirection * (ballSpeed + hitPower), ForceMode2D.Impulse);
         ballScript.bounces = 0;
-        gameObject.SetActive(false);
+        ballBeingHit--;
+        if(ballBeingHit <= 0)
+            gameObject.SetActive(false);
     }
 
     public void StopSwing()
     {
         StopAllCoroutines();
         hitBall = false;
-        ballScript.arrowPivot.SetActive(false);
+        foreach(Ball b in FindObjectsOfType<Ball>())
+        {
+            b.arrowPivot.SetActive(false);
+        }
         Time.timeScale = 1;
     }
 }

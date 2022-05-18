@@ -51,10 +51,14 @@ public class Enemy : MonoBehaviour
         anim.SetTrigger("Swing");
         FindObjectOfType<CameraController>().Shake();
         Ball ballScript = ball.GetComponent<Ball>();
+        ballScript.canHurtPlayer = true;
         Rigidbody2D ballRb = ball.GetComponent<Rigidbody2D>();
         float ballSpeed = ballRb.velocity.magnitude;
         ballRb.velocity = Vector2.zero;
-        ballRb.AddForce(hitDirection * (ballSpeed + redirectPower), ForceMode2D.Impulse);
+        if(ballScript.speedLevel != 0)
+            ballRb.AddForce(hitDirection * (ballSpeed + redirectPower), ForceMode2D.Impulse);
+        else
+            ballRb.AddForce(hitDirection * (ballSpeed + redirectPower * 2), ForceMode2D.Impulse);
         ballScript.bounces = 0;
     }
 }
