@@ -8,7 +8,6 @@ public class WarpGate : MonoBehaviour
     {
         if(collision.gameObject.tag == "Ball")
         {
-            Debug.Log("HIT");
             Ball ballScript = collision.gameObject.GetComponent<Ball>();
             ballScript.bounces = 0;
             float newSpeed = ((ballScript.speedLevel * 10) + 10);
