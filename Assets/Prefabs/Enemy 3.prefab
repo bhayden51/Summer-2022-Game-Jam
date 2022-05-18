@@ -11,13 +11,14 @@ GameObject:
   - component: {fileID: 2900107503291721096}
   - component: {fileID: 2900107503291721099}
   - component: {fileID: 2900107503291721098}
+  - component: {fileID: 1582924633347715641}
   - component: {fileID: 2900107503291721101}
   - component: {fileID: 2900107503291721100}
   - component: {fileID: 2900107503291721097}
   - component: {fileID: 9007804795097908775}
   - component: {fileID: 3981108550622955845}
   m_Layer: 8
-  m_Name: Enemy 2
+  m_Name: Enemy 3
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 364631791
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: -832169549290592895, guid: d824482047a243148b483743298498a6, type: 3}
+  m_Sprite: {fileID: 7917184039213801515, guid: 91395337427a7fa4081d49c3eda1da41, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,11 +102,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12202295e93dac64bb162ec2b1f4d38e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredSpeedToKill: 4
+  requiredSpeedToKill: 5
   redirectTime: 0.75
   redirectPower: 10
   collisionSound: {fileID: 9007804795097908775}
   chargeUpSound: {fileID: 3981108550622955845}
+--- !u!114 &1582924633347715641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2900107503291721103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17f6fa6e775ef874e97eaf72aba084c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3
 --- !u!70 &2900107503291721101
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -426,7 +440,7 @@ SpriteRenderer:
   m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 789dbafbf663a254a944f43cb6bb0355, type: 3}
-  m_Color: {r: 1, g: 0.5, b: 0, a: 0.6}
+  m_Color: {r: 1, g: 0, b: 0, a: 0.6}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
