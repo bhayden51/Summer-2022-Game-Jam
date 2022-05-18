@@ -18,18 +18,19 @@ public class SceneTransition : MonoBehaviour
         if (scene == "Level 1")
             GameManager.level = 1;
 
-        if (scene == "Level 16")
-        {
-            scene = "Credits";
-            FindObjectOfType<MusicChanger>().NewSong();
-        }
-
         newScene = scene;
         anim.SetTrigger("Scene End");
     }
 
     public void ChangeScene(string scene, float delay)
     {
+
+        if (scene == "Level 16")
+        {
+            scene = "Credits";
+            FindObjectOfType<MusicChanger>().NewSong();
+        }
+
         StartCoroutine(ChangeSceneEnum(scene, delay));
     }
 

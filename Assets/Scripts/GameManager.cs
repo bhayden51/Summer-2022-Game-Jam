@@ -5,7 +5,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public static int level = 1;
+    public static int level = 15;
 
     public GameObject PauseMenu;
     public TextMeshProUGUI levelTitle;
@@ -25,15 +25,11 @@ public class GameManager : MonoBehaviour
     {
         if(!gamePaused && Time.timeScale != 0 && Input.GetKeyDown(KeyCode.Escape))
         {
-            gamePaused = true;
-            Time.timeScale = 0;
-            PauseMenu.SetActive(true);
+            PauseGame();
         }
         else if (gamePaused && Input.GetKeyDown(KeyCode.Escape))
         {
-            gamePaused = false;
-            Time.timeScale = 1;
-            PauseMenu.SetActive(false);
+            UnPauseGame();
         }
     }
 
@@ -43,5 +39,19 @@ public class GameManager : MonoBehaviour
         levelTitle.GetComponent<Animator>().SetTrigger("Level Cleared");
         level++;
         FindObjectOfType<SceneTransition>().ChangeScene("Level " + level, 2.5f);
+    }
+
+    public void PauseGame()
+    {
+        gamePaused = true;
+        Time.timeScale = 0;
+        PauseMenu.SetActive(true);
+    }
+
+    public void UnPauseGame()
+    {
+        gamePaused = false;
+        Time.timeScale = 1;
+        PauseMenu.SetActive(false);
     }
 }
