@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  movingRight: 0
 --- !u!70 &2900107503291721101
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -167,7 +168,7 @@ Animator:
   m_GameObject: {fileID: 2900107503291721103}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e5251410a0a1dd443b7d1980765814bd, type: 2}
+  m_Controller: {fileID: 9100000, guid: b6ae3a73490e6e944831faba1370a29b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

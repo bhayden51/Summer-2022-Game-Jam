@@ -15,6 +15,9 @@ public class SceneTransition : MonoBehaviour
 
     public void ChangeScene(string scene)
     {
+        if (scene == "Level 1")
+            GameManager.level = 1;
+
         newScene = scene;
         anim.SetTrigger("Scene End");
     }
